@@ -28,7 +28,12 @@ angular.module('myApp', [
     .when('/statistics/players', {
       templateUrl: '/views/statistics/players.html',
       controller: 'StatisticsPlayersCtrl'
+    })
+    .when('/statistics/numbers', {
+      templateUrl: '/views/statistics/numbers.html',
+      controller: 'StatisticsNumbersCtrl'
     });
+
   RestangularProvider.setDefaultHttpFields({
     cache: false
   });

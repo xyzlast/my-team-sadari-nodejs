@@ -7,4 +7,12 @@ angular.module('myApp').service('StatisticsService', function(Restangular){
       }
     });
   };
+
+  self.calculateByNumbers = function(func) {
+    Restangular.all('statistics').get('numbers').then(function(jsonResult) {
+      if(jsonResult.ok && func) {
+        func(jsonResult.data);
+      }
+    });
+  };
 });

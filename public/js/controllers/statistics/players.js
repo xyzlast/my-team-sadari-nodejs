@@ -9,7 +9,7 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
     },
     seriesDefaults: {
       labels: {
-        template: '#= category # : #= kendo.format("{0}", value)#',
+        template: '#= category # : #= kendo.format("{0:2}%", percentage * 100)#',
         position: 'outsideEnd',
         visible: true,
         background: 'transparent'

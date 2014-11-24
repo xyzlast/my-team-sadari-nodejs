@@ -1,0 +1,21 @@
+<ul class="nav nav-pills">
+    <li><a href="/#/statistics/players">Players</a></li>
+    <li class="active"><a href="/#/statistics/numbers">Numbers</a></li>
+</ul>
+<div style="text-align:center">
+  <div kendo-chart="pieChart"
+       k-data-source="pieChartData"
+       k-options="pieChartOptions" k-rebind="pieChartOptions" class="k-chart"></div>
+</div>
+<table class="table table-table-condensed">
+  <thead>
+    <th>번호</th>
+    <th>걸린횟수</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="r in pieChartData">
+      <td>{{r.number}}</td>
+      <td>{{r.count}}</td>
+    </tr>
+  </tbody>
+</table>

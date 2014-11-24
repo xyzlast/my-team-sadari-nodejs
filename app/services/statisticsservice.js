@@ -25,3 +25,27 @@ module.exports.calculateByPlayers = function(func) {
     });
   });
 };
+
+module.exports.calculateByNumbers = function(func) {
+  var output = [];
+  var numbers = [1, 2, 3, 4, 5, 6, 7];
+  numbers.forEach(function(number) {
+    var query = {
+      deleted: false,
+      number: number.toString()
+    };
+    var q = Game.count(query).exec();
+    q.then(function(count) {
+      output.push({
+        number: number.toString(),
+        count: count
+      });
+      if(output.length == 7) {
+        output.sort(function(a, b) {
+          return parseInt(a.number) > parseInt(b.number);
+        });
+        func(output);
+      }
+    });
+  });
+};

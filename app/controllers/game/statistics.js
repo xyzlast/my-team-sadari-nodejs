@@ -12,4 +12,13 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/statistics/numbers.json', function(req, res, next) {
+    statisticsService.calculateByNumbers(function(output) {
+      res.json({
+        ok: true,
+        data: output
+      });
+    });
+  });
+
 };
