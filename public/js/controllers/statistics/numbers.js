@@ -10,7 +10,7 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
     seriesDefaults: {
       labels: {
         template: '#= category # : #= kendo.format("{0} 회", value)#',
-        position: 'outsideEnd',
+        position: 'center',
         visible: true,
         background: 'transparent'
       }
@@ -29,10 +29,6 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
       field: 'month',
       operator: 'eq',
       value: 5
-    },
-    chartArea: {
-      width: 500,
-      height: 360
     }
   };
 

@@ -5,24 +5,28 @@
 <div>
   <input type="checkbox" ng-model="includeDefaultAmount"/> 초기값 포함 (11월 10일 이전 데이터)
 </div>
-<div style="text-align:center">
-  <div kendo-chart="pieChart"
-       k-data-source="pieChartData"
-       k-options="pieChartOptions" k-rebind="pieChartOptions" class="k-chart"></div>
+<div class="row">
+  <div class="col-md-6">
+    <div kendo-chart="pieChart"
+         k-data-source="pieChartData"
+         k-options="pieChartOptions" k-rebind="pieChartOptions" class="k-chart"></div>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-table-condensed">
+      <thead>
+        <th>이름</th>
+        <th>걸린횟수</th>
+        <th>초기값</th>
+        <th>횟수</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="r in rawData">
+          <td>{{r.player.name}}</td>
+          <td>{{r.count}}</td>
+          <td>{{r.player.defaultAmount}}</td>
+          <td>{{r.count + r.player.defaultAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<table class="table table-table-condensed">
-  <thead>
-    <th>이름</th>
-    <th>걸린횟수</th>
-    <th>초기값</th>
-    <th>횟수</th>
-  </thead>
-  <tbody>
-    <tr ng-repeat="r in rawData">
-      <td>{{r.player.name}}</td>
-      <td>{{r.count}}</td>
-      <td>{{r.player.defaultAmount}}</td>
-      <td>{{r.count + r.player.defaultAmount}}</td>
-    </tr>
-  </tbody>
-</table>

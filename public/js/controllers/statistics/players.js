@@ -9,8 +9,8 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
     },
     seriesDefaults: {
       labels: {
-        template: '#= category # : #= kendo.format("{0:2}%", percentage * 100)#',
-        position: 'outsideEnd',
+        template: '#= category # (#= kendo.format("{0:2}%", percentage * 100)#)',
+        position: 'center',
         visible: true,
         background: 'transparent'
       }
@@ -29,11 +29,11 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
       field: 'month',
       operator: 'eq',
       value: 5
-    },
-    chartArea: {
-      width: 500,
-      height: 360
     }
+    // chartArea: {
+    //   width: 500,
+    //   height: 360
+    // }
   };
 
   var init = function() {
