@@ -1,9 +1,7 @@
 var express = require('express');
 var gameService = require('../../services/gameservice.js');
 var playerService = require('../../services/playerservice.js');
-
 module.exports = function(app) {
-
   app.get('/api/game/:id.json', function(req, res, next) {
     var id = req.param('id');
     gameService.findOne(id, function(game) {
@@ -16,7 +14,6 @@ module.exports = function(app) {
       });
     });
   });
-
   app.delete('/api/game/:id.json', function(req, res, next) {
     var id = req.param('id');
     gameService.remove(id, function(game) {
@@ -26,9 +23,7 @@ module.exports = function(app) {
       });
     });
   });
-
   app.post('/api/game/update/:id.json', function(req, res, next) {
-    console.log('update method called');
     var id = req.param('id');
     var game = {
       number: req.body.game.number,
@@ -43,8 +38,6 @@ module.exports = function(app) {
       });
     });
   });
-
-
   app.post('/api/game/add.json', function(req, res, next) {
     var game = req.body.game;
     var gameResults = req.body.gameResults;
@@ -55,5 +48,4 @@ module.exports = function(app) {
       });
     });
   });
-
 };
