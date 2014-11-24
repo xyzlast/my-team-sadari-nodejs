@@ -15,7 +15,7 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
         background: 'transparent'
       }
     },
-    seriesColors: ['#efd574', '#8d739d', '#e58c9', '#8cc5db', '#9edfcf'],
+    seriesColors: ['#92D050', '#FFC000', '#ACACEA', '#FF3300', '#F0B0F0', '#D0A0F0', '#00B0F0'],
     series: [{
       type: 'pie',
       field: 'count',

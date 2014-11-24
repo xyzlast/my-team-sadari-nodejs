@@ -9,12 +9,13 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
     },
     seriesDefaults: {
       labels: {
-        template: '#= category # : #= kendo.format("{0}", value)#',
+        template: '#= category # : #= kendo.format("{0} 회", value)#',
         position: 'outsideEnd',
         visible: true,
         background: 'transparent'
       }
     },
+    seriesColors: ['#92D050', '#FFC000', '#ACACEA', '#FF3300', '#F0B0F0', '#D0A0F0', '#00B0F0'],
     series: [{
       type: 'pie',
       field: 'count',
