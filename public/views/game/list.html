@@ -1,0 +1,32 @@
+<div style="text-align:right;margin-bottom:30px">
+  <h1>{{title}} </h1>
+  <button type="button" class="btn btn-primary" ng-click="addNewGame()">Game 추가</button>
+</div>
+<h2 ng-show="noGame">
+  게임이 진행되지 않았습니다.
+</h2>
+<div ng-repeat="game in games">
+  <fieldset>
+    <legend style="text-align:right">{{game.game.winner.name}}({{game.game.number}})
+      <button type="button" class="btn btn-info" ng-click="edit(game.game._id)">수정</button>
+    </legend>
+    <ul>
+      <li>비용 : {{game.game.cost}}</li>
+      <li>비고 : {{game.game.description}}</li>
+    </ul>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>번호</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="player in game.players" ng-class="player.number == game.game.number ? 'success' : 'none'">
+          <td>{{player.player.name}}</td>
+          <td>{{player.number}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+</div>

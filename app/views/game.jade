@@ -1,0 +1,31 @@
+div(style="text-align:right")
+  button(type="button" class="btn btn-default" ng-click="back()") 뒤로
+  button(type="button" class="btn btn-info" ng-click="save()") 저장
+  button(type="button" class="btn btn-danger" ng-click="remove()") 삭제
+
+form(class="form-horizontal" role="form")
+  div(class="form-group")
+    label(for="matchingNumber" class="col-sm-2 control-label") 날짜
+    div(class="col-sm-10")
+      input(kendo-date-picker="datepicker" k-format="'yyyy-MM-dd'" ng-model="game.date")
+  div(class="form-group")
+    label(for="cost" class="col-sm-2 control-label") 금액
+    div(class="col-sm-10")
+      input(kendo-numeric-text-box="numberpicker" k-min="3000" k-max="30000" k-step="1000" k-options="numberOptions" k-ng-model="game.cost")
+  div(class="form-group")
+    label(for="cost" class="col-sm-2 control-label") 설명
+    div(class="col-sm-10")
+      textarea(class="form-control" rows="3" ng-model="game.description")
+
+  table(class="table table-condensed")
+    thead
+      th 참석여부
+      th 이름
+      th 선택번호
+    tbody
+      tr(ng-repeat="player in players" ng-class="player.number == game.number ? 'success' : 'none'")
+        td
+          input(type="checkbox" ng-model="player.joined")
+        td {{player.name}}
+        td
+          input(kendo-numeric-text-box="textbox" k-min="1" k-max="10" k-options="numberOptions" k-ng-model="player.number")
