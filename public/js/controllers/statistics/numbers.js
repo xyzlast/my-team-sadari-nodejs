@@ -33,6 +33,7 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
   };
 
   var init = function() {
+    $scope.changeMenu('menu-statistics');
     StatisticsService.calculateByNumbers(load);
     $scope.$on('$destroy', function() {
       if($scope.pieChart != null) {

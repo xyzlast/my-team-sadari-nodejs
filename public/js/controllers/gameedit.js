@@ -8,11 +8,11 @@ angular.module('myApp').controller('GameEditCtrl', function($scope, $location, G
 
   var id;
   var init = function() {
+    $scope.changeMenu('menu-main');
     id = $routeParams.id;
     $scope.mode = 'edit';
     GameService.findOne(id, loadGame);
   };
-
 
   var loadGame = function(data) {
     $scope.players = data.players;

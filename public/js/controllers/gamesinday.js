@@ -4,6 +4,7 @@ angular.module('myApp').controller('GamesInDayCtrl', function($scope, $location,
   $scope.noGame = true;
 
   var init = function() {
+    $scope.changeMenu('menu-main');
     var year = $routeParams.year;
     var month = $routeParams.month;
     var day = $routeParams.day;

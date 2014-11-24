@@ -30,13 +30,10 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
       operator: 'eq',
       value: 5
     }
-    // chartArea: {
-    //   width: 500,
-    //   height: 360
-    // }
   };
 
   var init = function() {
+    $scope.changeMenu('menu-statistics');
     StatisticsService.calculateByPlayers(load);
     $scope.$on('$destroy', function() {
       if($scope.pieChart != null) {

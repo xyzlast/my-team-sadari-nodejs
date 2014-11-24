@@ -7,6 +7,7 @@ angular.module('myApp').controller('GameNewCtrl', function($scope, $routeParams,
   $scope.game;
 
   var init = function() {
+    $scope.changeMenu('menu-main');
     $scope.mode = 'add';
     PlayerService.list(loadPlayers)
   };

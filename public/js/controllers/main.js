@@ -16,4 +16,9 @@ angular.module('myApp').controller('MainCtrl', function($scope, $window, $timeou
   $scope.back = function() {
     $window.history.back();
   };
+
+  $scope.changeMenu = function(id) {
+    angular.element('#header-menu li').removeClass('active');
+    angular.element('#' + id).addClass('active');
+  };
 });

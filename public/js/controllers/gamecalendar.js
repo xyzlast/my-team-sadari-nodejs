@@ -33,6 +33,7 @@ angular.module('myApp').controller('GameCalendarCtrl', function($scope, $locatio
   $scope.month = 0;
 
   var init = function() {
+    $scope.changeMenu('menu-main');
     list(new Date());
     $scope.$on('$destroy', function() {
       if($scope.calendar) {
