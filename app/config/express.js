@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var session = require('cookie-session');
 
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
@@ -17,6 +18,9 @@ module.exports = function(app, config) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
+  }));
+  app.use(session({
+    keys: ['key1', 'key2']
   }));
   app.use(cookieParser());
   app.use(compress());

@@ -25,6 +25,9 @@ module.exports = function(app) {
   });
 
   app.post('/api/game/add.json', function(req, res, next) {
+    console.log(req.session.passport);
+    console.log(req.session.passport.user.emails);
+
     var game = req.body.game;
     var gameResults = req.body.gameResults;
     gameService.add(game, gameResults, function(game) {
