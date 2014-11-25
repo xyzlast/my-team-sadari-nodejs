@@ -2,6 +2,13 @@ var mongoose = require('mongoose');
 var Season = mongoose.model('Season');
 var ObjectId = mongoose.Types.ObjectId;
 
+module.exports.findOne = function(id, func) {
+  var q = Season.findById(ObjectId(id)).exec();
+  q.then(function(season) {
+    func(season);
+  });
+};
+
 module.exports.list = function(func) {
   var q = Season.find({ deleted: false }).sort({ to: 'desc' }).exec();
   q.then(function(seasons) {
@@ -15,6 +22,8 @@ module.exports.list = function(func) {
 
     if(seasons.length != 0) {
       currentSeason.from = seasons[0].to;
+    } else {
+      currentSeason.from = new Date(2014, 11, 1);
     }
     output.push(currentSeason);
     seasons.forEach(function(season) {
