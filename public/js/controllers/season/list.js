@@ -1,4 +1,4 @@
-angular.module('myApp').controller('SeasonListCtrl', function($scope, $location, SeasonService) {
+angular.module('myApp').controller('SeasonListCtrl', function($scope, $location, $window, SeasonService) {
   $scope.seasons = [];
   var init = function() {
     $scope.changeMenu('menu-season');
@@ -25,10 +25,12 @@ angular.module('myApp').controller('SeasonListCtrl', function($scope, $location,
       $scope.showGlobalMessage('info', '최상위 진행중인 Season은 수정할 수 없습니다.');
       return false;
     }
-    SeasonService.remove(seasonId, function(data) {
-      $scope.showGlobalMessage('info', "Season이 삭제되었습니다.");
-      init();
-    });
+    if($window.confirm('삭제하시겠습니까?')) {
+      SeasonService.remove(seasonId, function(data) {
+        $scope.showGlobalMessage('info', "Season이 삭제되었습니다.");
+        init();
+      });
+    }
   };
 
   $scope.addNewSeason = function() {

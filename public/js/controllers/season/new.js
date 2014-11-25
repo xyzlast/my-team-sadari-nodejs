@@ -2,7 +2,10 @@ angular.module('myApp').controller('SeasonNewCtrl', function($scope, SeasonServi
   $scope.item = {};
 
   $scope.save = function() {
-    var result = SeasonService.add($scope.item);
+    var result = SeasonService.add($scope.item, function(output) {
+      $scope.showGlobalMessage('success', 'Season 생성이 되었습니다.');
+      $scope.back();
+    });
     if(!result.ok) {
       $scope.showGlobalMessage('danger', result.message);
     }

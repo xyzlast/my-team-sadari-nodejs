@@ -19,11 +19,13 @@
       <thead>
         <th>번호</th>
         <th>걸린횟수</th>
+        <th>확률(%)</th>
       </thead>
       <tbody>
         <tr ng-repeat="r in pieChartData">
           <td>{{r.number}}</td>
           <td>{{r.count}}</td>
+          <td>{{r.percentage | number:2}}</td>
         </tr>
       </tbody>
     </table>

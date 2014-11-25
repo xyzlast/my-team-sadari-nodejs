@@ -67,7 +67,7 @@ angular.module('myApp').service('GameService', function GameService(Restangular,
         game: game,
         gameResults: gameResults
       };
-      Restangular.all('game/update/' + id).post(data).then(function(jsonResult) {
+      Restangular.all('game/' + id).post(data).then(function(jsonResult) {
         func(jsonResult);
       });
       return {

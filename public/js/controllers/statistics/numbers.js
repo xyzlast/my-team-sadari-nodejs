@@ -51,9 +51,6 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
       if($scope.pieChart != null) {
         $scope.pieChart.destroy();
       }
-      if($scope.barChart != null) {
-        $scope.barChart.destroy();
-      }
     });
   };
 
@@ -65,10 +62,15 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
 
   var load = function(output) {
     $scope.pieChartData = [];
+    var totalCount = 0;
+    angular.forEach(output, function(o) {
+      totalCount += o.count;
+    });
     angular.forEach(output, function(o) {
       $scope.pieChartData.push({
         number: o.number.toString() + '번',
-        count: o.count
+        count: o.count,
+        percentage: o.count / totalCount * 100
       });
     });
   };
