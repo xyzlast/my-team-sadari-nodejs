@@ -36,6 +36,10 @@ angular.module('myApp', [
     .when('/statistics/money', {
       templateUrl: '/views/statistics/money.html',
       controller: 'StatisticsMoneyCtrl'
+    })
+    .when('/season/list', {
+      templateUrl: '/views/season/list.html',
+      controller: 'SeasonListCtrl'
     });
 
   RestangularProvider.setDefaultHttpFields({

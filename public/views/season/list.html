@@ -1,0 +1,18 @@
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>이름</th>
+      <th>FROM</th>
+      <th>TO</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="season in seasons">
+      <td>{{season.name}}</td>
+      <td>{{season.from | date:'yyyy-MM-dd'}}</td>
+      <td>{{season.to | date:'yyyy-MM-dd'}}</td>
+      <td>{{season.description}}</td>
+    </tr>
+  </tbody>
+</table>
