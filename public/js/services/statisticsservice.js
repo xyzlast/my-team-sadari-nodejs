@@ -1,15 +1,20 @@
-angular.module('myApp').service('StatisticsService', function(Restangular) {
+angular.module('myApp').service('StatisticsService', function(Restangular, $filter) {
   var self = this;
   var restBase = Restangular.all('statistics');
 
-  self.calculateByPlayers = function(from, to, func) {
-    var params = { };
+  var buildParams = function(from, to) {
+    var params = {};
     if(from != null) {
-      params.from = kendo.toString(from, 'yyyy-MM-dd');
+      params.from = $filter('date')(from, 'yyyy-MM-dd');
     }
     if(to != null) {
-      params.to = kendo.toString(to, 'yyyy-MM-dd');
+      params.to = $filter('date')(to, 'yyyy-MM-dd');
     }
+    return params;
+  };
+
+  self.calculateByPlayers = function(from, to, func) {
+    var params = buildParams(from, to);
     restBase.get('players', params).then(function(jsonResult) {
       if(jsonResult.ok && func) {
         func(jsonResult.data);
@@ -18,13 +23,8 @@ angular.module('myApp').service('StatisticsService', function(Restangular) {
   };
 
   self.calculateByNumbers = function(from, to, func) {
-    var params = { };
-    if(from != null) {
-      params.from = kendo.toString(from, 'yyyy-MM-dd');
-    }
-    if(to != null) {
-      params.to = kendo.toString(to, 'yyyy-MM-dd');
-    }
+    var params = buildParams(from, to);
+    console.log(params);
     restBase.get('numbers', params).then(function(jsonResult) {
       if(jsonResult.ok && func) {
         func(jsonResult.data);
@@ -33,13 +33,7 @@ angular.module('myApp').service('StatisticsService', function(Restangular) {
   };
 
   self.calculateByMoney = function(from, to, func) {
-    var params = { };
-    if(from != null) {
-      params.from = kendo.toString(from, 'yyyy-MM-dd');
-    }
-    if(to != null) {
-      params.to = kendo.toString(to, 'yyyy-MM-dd');
-    }
+    var params = buildParams(from, to);
     restBase.get('money', params).then(function(jsonResult) {
       if(jsonResult.ok && func) {
         func(jsonResult.data);

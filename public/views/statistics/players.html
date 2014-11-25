@@ -6,7 +6,7 @@
 <div style="text-align: right">
   Season : <select ng-model="season" ng-options="season._id as season.name for season in seasons">
   </select>
-  <button ng-click="load" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" arial-hidden="true"></span></button>
+  <button ng-click="load()" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" arial-hidden="true"></span></button>
 </div>
 <div>
   <input type="checkbox" ng-model="includeDefaultAmount"/> 초기값 포함 (11월 10일 이전 데이터)

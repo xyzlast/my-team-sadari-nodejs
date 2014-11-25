@@ -35,14 +35,13 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
   $scope.season = null;
 
   $scope.load = function() {
-    console.log('load');
     var season = null;
     angular.forEach($scope.seasons, function(s) {
       if(s._id == $scope.season) {
         season = s;
       }
     });
-    StatisticsService.calculateByNumbers(season.form, season.to, load);
+    StatisticsService.calculateByNumbers(season.from, season.to, load);
   };
 
   var init = function() {

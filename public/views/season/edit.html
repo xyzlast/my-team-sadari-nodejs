@@ -1,0 +1,31 @@
+<div style="text-align:right">
+  <button type="button" class="btn btn-default" ng-click="back()">뒤로</button>
+  <button type="button" class="btn btn-info" ng-click="save()">저장</button>
+  <button type="button" class="btn btn-danger" ng-click="remove()" ng-show="mode == 'edit'">삭제</button>
+</div>
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="matchingNumber" class="col-sm-2 control-label">Season 이름</label>
+    <div class="col-sm-10">
+      <input type="text" ng-model="item.name" placeholder="이름을 넣어주세요."/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="matchingNumber" class="col-sm-2 control-label">From</label>
+    <div class="col-sm-10">
+     <input kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="item.from" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="matchingNumber" class="col-sm-2 control-label">To</label>
+    <div class="col-sm-10">
+     <input kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="item.to" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="cost" class="col-sm-2 control-label">설명</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="3" ng-model="item.description"></textarea>
+    </div>
+  </div>
+</form>

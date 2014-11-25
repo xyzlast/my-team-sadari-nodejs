@@ -3,6 +3,25 @@ var Player = mongoose.model('Player');
 var Game = mongoose.model('Game');
 var ObjectId = mongoose.Types.ObjectId;
 
+function addQueryFromAndTo(from, to, query) {
+  var oneDayMiliSeconds = 24 * 60 * 60 * 1000;
+  if(from != null && to != null) {
+    query.date = {
+      '$gte': from,
+      '$lt': new Date(to.getTime() + oneDayMiliSeconds)
+    };
+  } else if(from != null) {
+    query.date = {
+      '$gte': from
+    };
+  } else if(to != null) {
+    query.date = {
+      '$lt': new Date(to.getTime() + oneDayMiliSeconds)
+    };
+  }
+  return query;
+};
+
 module.exports.calculateByPlayers = function(from, to, func) {
   var q = Player.find({ deleted: false }).exec();
   q.then(function(players) {
@@ -12,20 +31,7 @@ module.exports.calculateByPlayers = function(from, to, func) {
         winner: player._id,
         deleted: false
       };
-      if(from != null && to != null) {
-        query.date = {
-          '$gt': from,
-          '$lte': to
-        }
-      } else if(from != null) {
-        query.date = {
-          '$gt': from
-        }
-      } else if(to != null) {
-        query.date = {
-          '$lte': to
-        }
-      }
+      query = addQueryFromAndTo(from, to, query);
       var q2 = Game.count(query).exec();
       q2.then(function(count) {
         output.push({
@@ -48,20 +54,8 @@ module.exports.calculateByNumbers = function(from, to, func) {
       deleted: false,
       number: number.toString()
     };
-    if(from != null && to != null) {
-      query.date = {
-        '$gt': from,
-        '$lte': to
-      }
-    } else if(from != null) {
-      query.date = {
-        '$gt': from
-      }
-    } else if(to != null) {
-      query.date = {
-        '$lte': to
-      }
-    }
+    query = addQueryFromAndTo(from, to, query);
+
     var q = Game.count(query).exec();
     q.then(function(count) {
       output.push({
@@ -88,22 +82,9 @@ module.exports.calculateByMoney = function(from, to, func) {
         winner: player._id,
         deleted: false
       };
-
-      if(from != null && to != null) {
-        matchQuery.date = {
-          '$gt': from,
-          '$lte': to
-        }
-      } else if(from != null) {
-        matchQuery.date = {
-          '$gt': from
-        }
-      } else if(to != null) {
-        matchQuery.date = {
-          '$lte': to
-        }
-      }
-
+      matchQuery = addQueryFromAndTo(from, to, matchQuery);
+      console.log('matchQuery : ');
+      console.log(matchQuery);
       var q = Game.aggregate(
         [
           { $match: matchQuery },
@@ -116,11 +97,19 @@ module.exports.calculateByMoney = function(from, to, func) {
           }
         ]).exec();
       q.then(function(res) {
-        output.push({
-          player: player,
-          totalCost: res[0].totalCost,
-          averageCost: res[0].averageCost
-        });
+        if(res.length != 0) {
+          output.push({
+            player: player,
+            totalCost: res[0].totalCost,
+            averageCost: res[0].averageCost
+          });
+        } else {
+          output.push({
+            player: player,
+            totalCost: 0,
+            averageCost: 0
+          });
+        }
         if(output.length == players.length) {
           output.sort(function(a, b) {
             return a.totalCost < b.totalCost;

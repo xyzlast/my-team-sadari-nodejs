@@ -18,10 +18,12 @@ module.exports.list = function(func) {
       name: 'now',
       from: null,
       to: null,
+      description: '지금 진행중인 Season'
     };
 
     if(seasons.length != 0) {
-      currentSeason.from = seasons[0].to;
+      var oneDayMiliSeconds = 24 * 60 * 60 * 1000;
+      currentSeason.from = new Date(seasons[0].to.getTime() + oneDayMiliSeconds);
     } else {
       currentSeason.from = new Date(2014, 11, 1);
     }
@@ -34,11 +36,15 @@ module.exports.list = function(func) {
 };
 
 module.exports.add = function(name, from, to, description, func) {
+  var descriptionValue = null;
+  if(description) {
+    descriptionValue = description;
+  }
   var season = new Season({
     name: name,
     from: from,
     to: to,
-    description: description,
+    description: descriptionValue,
     deleted: false
   });
   var q = season.save(function(err) {
@@ -51,8 +57,9 @@ module.exports.add = function(name, from, to, description, func) {
 
 module.exports.remove = function(id, func) {
   var query = { _id: ObjectId(id) };
-  var q = Season.update(query, { deleted: true }).exec();
-  q.then(function(count) {
+  console.log(query);
+  Season.remove(query, function(err) {
+    console.log(err);
     func('remove complted');
   });
 };
