@@ -119,7 +119,10 @@ module.exports.update = function(id, game, gameResults, func) {
 
 module.exports.findOne = function(id, func) {
   Game.findById(ObjectId(id)).populate('winner').exec(function(err, game) {
-    if(game == null) throw new Exception('Object not found!');
+    if(game == null) {
+      func(null);
+      return false;
+    };
     var q = GameResult.find({ game : ObjectId(id) })
               .populate('player')
               .exec();

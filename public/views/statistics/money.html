@@ -1,13 +1,15 @@
 <ul class="nav nav-pills">
     <li><a href="/#/statistics/players">Players</a></li>
-    <li class="active"><a href="/#/statistics/numbers">Numbers</a></li>
-    <li><a href="/#/statistics/money">Money</a></li>
+    <li><a href="/#/statistics/numbers">Numbers</a></li>
+    <li class="active"><a href="/#/statistics/money">Money</a></li>
 </ul>
+
 <div style="text-align: right">
   Season : <select ng-model="season" ng-options="season._id as season.name for season in seasons">
   </select>
   <button ng-click="load" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" arial-hidden="true"></span></button>
 </div>
+
 <div class="row">
   <div class="col-md-6">
     <div kendo-chart="pieChart"
@@ -17,13 +19,15 @@
   <div class="col-md-6">
     <table class="table table-table-condensed">
       <thead>
-        <th>번호</th>
-        <th>걸린횟수</th>
+        <th>이름</th>
+        <th>총 금액</th>
+        <th>평균 금액</th>
       </thead>
       <tbody>
-        <tr ng-repeat="r in pieChartData">
-          <td>{{r.number}}</td>
-          <td>{{r.count}}</td>
+        <tr ng-repeat="r in rawData">
+          <td>{{r.player}}</td>
+          <td>{{r.totalCostDisplay}}</td>
+          <td>{{r.averageCostDisplay}}</td>
         </tr>
       </tbody>
     </table>

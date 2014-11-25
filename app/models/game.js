@@ -12,4 +12,19 @@ var GameSchema = new Schema({
   deleted: Boolean
 });
 
+// GameSchema.aggregate({
+//   {
+//     $group: {
+//       _id: '$winner',
+//       cost: { $sum: 1 }
+//     }
+//   },
+//   function(err, res) {
+//     if(err) {
+//       console.log(err);
+//     }
+//     console.log(res);
+//   }
+// });
+
 mongoose.model('Game', GameSchema, 'game');

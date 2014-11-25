@@ -1,7 +1,13 @@
 <ul class="nav nav-pills">
     <li class="active"><a href="/#/statistics/players">Players</a></li>
     <li><a href="/#/statistics/numbers">Numbers</a></li>
+    <li><a href="/#/statistics/money">Money</a></li>
 </ul>
+<div style="text-align: right">
+  Season : <select ng-model="season" ng-options="season._id as season.name for season in seasons">
+  </select>
+  <button ng-click="load" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" arial-hidden="true"></span></button>
+</div>
 <div>
   <input type="checkbox" ng-model="includeDefaultAmount"/> 초기값 포함 (11월 10일 이전 데이터)
 </div>

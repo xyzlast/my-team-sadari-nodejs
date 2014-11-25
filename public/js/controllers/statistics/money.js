@@ -1,15 +1,14 @@
-angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, StatisticsService, SeasonService) {
+angular.module('myApp').controller('StatisticsMoneyCtrl', function($scope, StatisticsService, SeasonService) {
   $scope.pieChart = null;
   $scope.pieChartData = [];
-  $scope.includeDefaultAmount = true;
-
+  $scope.rawData = [];
   $scope.pieChartOptions = {
     legend: {
       position: 'bottom'
     },
     seriesDefaults: {
       labels: {
-        template: '#= category # (#= kendo.format("{0:2}%", percentage * 100)#)',
+        template: '#= kendo.format("{0}원", value)#',
         position: 'center',
         visible: true,
         background: 'transparent'
@@ -17,9 +16,9 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
     },
     seriesColors: ['#92D050', '#FFC000', '#ACACEA', '#FF3300', '#F0B0F0', '#D0A0F0', '#00B0F0'],
     series: [{
-      type: 'pie',
-      field: 'count',
-      categoryField: 'name'
+      type: 'bar',
+      field: 'totalCost',
+      categoryField: 'player'
     }],
     tooltip: {
       visible: true,
@@ -29,8 +28,17 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
       field: 'month',
       operator: 'eq',
       value: 5
+    },
+    valueAxis: {
+      line: {
+          visible: false
+      },
+      minorGridLines: {
+          step: 5000
+      }
     }
   };
+
   $scope.seasons = [];
   $scope.season = null;
 
@@ -41,7 +49,7 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
         season = s;
       }
     });
-    StatisticsService.calculateByPlayers(season.from, season.to, load);
+    StatisticsService.calculateByMoney(season.from, season.to, load);
   };
 
   var init = function() {
@@ -55,12 +63,6 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
         $scope.barChart.destroy();
       }
     });
-    $scope.$watch('includeDefaultAmount', function(newValue, oldValue) {
-      if(newValue == oldValue) {
-        return;
-      }
-      buildData();
-    });
   };
 
   var loadSeasons = function(seasons) {
@@ -69,34 +71,18 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
     $scope.load();
   };
 
-  $scope.rawData;
   var load = function(data) {
-    $scope.rawData = angular.copy(data);
-    $scope.rawData.sort(function(a, b) {
-      return a.player.name > b.player.name;
+    $scope.rawData = [];
+    angular.forEach(data, function(d) {
+      $scope.rawData.push({
+        player: d.player.name,
+        totalCost: d.totalCost,
+        totalCostDisplay: kendo.toString(d.totalCost, 'c0'),
+        averageCost: d.averageCost,
+        averageCostDisplay: kendo.toString(d.averageCost, 'c0')
+      });
     });
-    buildData();
-  };
-
-  var buildData = function() {
-    var output = [];
-    angular.forEach($scope.rawData, function(d) {
-      if($scope.includeDefaultAmount) {
-        output.push({
-          name: d.player.name,
-          count: d.count + d.player.defaultAmount
-        });
-      } else {
-        output.push({
-          name: d.player.name,
-          count: d.count
-        });
-      }
-    });
-    output.sort(function(a, b) {
-      return a.count < b.count;
-    });
-    $scope.pieChartData = output;
+    $scope.pieChartData = angular.copy($scope.rawData);
   };
 
   init();

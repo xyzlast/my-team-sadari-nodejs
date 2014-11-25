@@ -25,10 +25,14 @@ module.exports = function(app) {
   });
   app.post('/api/game/update/:id.json', function(req, res, next) {
     var id = req.param('id');
+    var description = '';
+    if(req.body.game.description) {
+      description = req.body.game.description;
+    }
     var game = {
       number: req.body.game.number,
       cost: req.body.game.cost,
-      description: req.body.game.description
+      description: description
     };
     var gameResults = req.body.gameResults;
     gameService.update(id, game, gameResults, function(updatedGame) {

@@ -1,7 +1,6 @@
-angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, StatisticsService) {
+angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, StatisticsService, SeasonService) {
   $scope.pieChart = null;
   $scope.pieChartData = [];
-  $scope.includeDefaultAmount = true;
 
   $scope.pieChartOptions = {
     legend: {
@@ -32,9 +31,23 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
     }
   };
 
+  $scope.seasons = [];
+  $scope.season = null;
+
+  $scope.load = function() {
+    console.log('load');
+    var season = null;
+    angular.forEach($scope.seasons, function(s) {
+      if(s._id == $scope.season) {
+        season = s;
+      }
+    });
+    StatisticsService.calculateByNumbers(season.form, season.to, load);
+  };
+
   var init = function() {
     $scope.changeMenu('menu-statistics');
-    StatisticsService.calculateByNumbers(load);
+    SeasonService.list(loadSessions);
     $scope.$on('$destroy', function() {
       if($scope.pieChart != null) {
         $scope.pieChart.destroy();
@@ -43,6 +56,12 @@ angular.module('myApp').controller('StatisticsNumbersCtrl', function($scope, Sta
         $scope.barChart.destroy();
       }
     });
+  };
+
+  var loadSessions = function(seasons) {
+    $scope.seasons = seasons;
+    $scope.season = seasons[0]._id;
+    $scope.load();
   };
 
   var load = function(output) {
