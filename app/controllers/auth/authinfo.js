@@ -1,15 +1,15 @@
-module.exports = init;
+module.exports = AuthInfoController;
 
-function init(app) {
+function AuthInfoController(app) {
+  var authUtil = require('../../utils/authutil.js');
   app.get('/api/auth/info.json', function(req, res) {
-    try {
-      var user = req.session.passport.user._json;
+    if(authUtil.isAuthorized(req)) {
       res.json({
         ok: true,
-        user: user,
-        master: user.email == 'xyzlast@gmail.com'
+        user: authUtil.getUser(req),
+        master: authUtil.isMaster(req)
       });
-    } catch(e) {
+    } else {
       res.json({
         ok: false,
         message: 'not-authorized'

@@ -1,6 +1,6 @@
-module.exports = init;
+module.exports = GameListController;
 
-function init(app) {
+function GameListController(app) {
   var express = require('express');
   var gameService = require('../../services/gameservice.js');
   var bodyParser = require('body-parser');

@@ -1,6 +1,6 @@
-module.exports = init;
+module.exports = StatisticsController;
 
-function init(app) {
+function StatisticsController(app) {
   var express = require('express');
   var statisticsService = require('../../services/statisticsservice.js');
   var dateUtil = require('../../utils/dateconverter.js');

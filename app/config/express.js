@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var session = require('cookie-session');
+var authUtil = require('../utils/authutil.js');
 
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
@@ -20,12 +21,32 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(session({
-    keys: ['key1', 'key2']
+    keys: ['sessionSeqKey', 'sessionSeqKey2']
   }));
   app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+
+  var checkAuth = function(req, res, next) {
+    if(authUtil.isMaster(req)) {
+      next();
+    } else {
+      if(authUtil.isAuthorized(req)) {
+        res.status(403).send('you are not master');
+      } else {
+        res.status(401).send('google oauth request');
+      }
+    }
+  };
+
+  app.post('/api/*', function(req, res, next) {
+    checkAuth(req, res, next);
+  });
+
+  app.delete('/api/*', function(req, res, next) {
+    checkAuth(req, res, next);
+  });
 
   var controllers = glob.sync(config.root + '/app/controllers/**/*.js');
   controllers.forEach(function (controller) {
@@ -60,3 +81,4 @@ module.exports = function(app, config) {
   });
 
 };
+

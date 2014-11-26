@@ -1,6 +1,6 @@
-module.exports = init;
+module.exports = GameController;
 
-function init(app) {
+function GameController(app) {
   var express = require('express');
   var gameService = require('../../services/gameservice.js');
   var playerService = require('../../services/playerservice.js');
@@ -17,6 +17,7 @@ function init(app) {
       });
     });
   });
+
 
   app.delete('/api/game/:id.json', function(req, res, next) {
     var id = req.param('id');
