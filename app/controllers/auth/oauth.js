@@ -1,6 +1,6 @@
-module.exports = init;
+module.exports = OAuthController;
 
-function init(app) {
+function OAuthController(app) {
   var passport = require('passport');
   app.use(passport.initialize());
   app.use(passport.session());
@@ -25,13 +25,14 @@ function init(app) {
     // done 메소드에 전달된 정보가 세션에 저장된다.
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //
+    console.log(profile);
     return done(null, profile);
   }));
 
   app.get('/auth/google', passport.authenticate('google', {
     scope: [
-    'https://www.googleapis.com/auth/userinfo.profile',
-    'https://www.googleapis.com/auth/userinfo.email'
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
     ]
   }));
 
@@ -46,6 +47,7 @@ function init(app) {
     // req.session.passport 의 정보를 삭제한다.
     //
     req.logout();
+    req.session = null;
     res.redirect('/');
   });
 };
