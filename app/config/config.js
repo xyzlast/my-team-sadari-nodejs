@@ -8,11 +8,8 @@ var config = {
     app: {
       name: 'without me!!'
     },
-    // port: 80,
-    port: process.env.PORT,
-    // db: 'mongodb://localhost/sadari'
-    // db: 'mongodb://heroku:Xucs9HmJrBKBr6bPkO6CM044_G6oVv5gV0bN0dxcXS-LYHWmKdWXaPnqcYwa7MQn1iVyOmbrP4BRT8QkdJcxlQ@dogen.mongohq.com:10058/app31973614'
-    db: process.env.MONGOHQ_URL
+    port: 80,
+    db: 'mongodb://localhost/sadari'
   },
 
   test: {
@@ -29,8 +26,8 @@ var config = {
     app: {
       name: 'without me!!'
     },
-    port: 3000,
-    db: 'mongodb://localhost/sadari'
+    port: process.env.PORT,
+    db: process.env.MONGOHQ_URL
   }
 };
 
