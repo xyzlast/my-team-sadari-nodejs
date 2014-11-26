@@ -27,7 +27,7 @@ var config = {
     google: {
       clientId: '72427641175-749cqavq62f6p65k269cp9onmebhaf37.apps.googleusercontent.com',
       clientSeq: 'AnX6PA0o28-Ei2d1N7r3-8nu',
-      callbackUri: 'https://safe-cliffs-4649.herokuapp.com/oauth2callback'
+      callbackUri: 'http://my-sadari.herokuapp.com/oauth2callback'
     }
   }
 };
