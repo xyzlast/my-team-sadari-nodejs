@@ -17,15 +17,6 @@ var config = {
     }
   },
 
-  test: {
-    root: rootPath,
-    app: {
-      name: 'without me!!'
-    },
-    port: 3000,
-    db: 'mongodb://localhost/sadari'
-  },
-
   production: {
     root: rootPath,
     app: {
