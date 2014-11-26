@@ -2,6 +2,8 @@ module.exports = OAuthController;
 
 function OAuthController(app) {
   var passport = require('passport');
+  var config = require('../../config/config.js');
+
   app.use(passport.initialize());
   app.use(passport.session());
   var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -14,9 +16,9 @@ function OAuthController(app) {
   });
 
   passport.use(new GoogleStrategy({
-    clientID: '72427641175-749cqavq62f6p65k269cp9onmebhaf37.apps.googleusercontent.com',
-    clientSecret: 'AnX6PA0o28-Ei2d1N7r3-8nu',
-    callbackURL: 'https://safe-cliffs-4649.herokuapp.com/oauth2callback'
+    clientID: config.google.clientId,
+    clientSecret: config.google.clientSeq,
+    callbackURL: config.google.callbackUri
   },
   function(accessToken, refreshToken, profile, done) {
     //
