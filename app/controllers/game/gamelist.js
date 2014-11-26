@@ -1,8 +1,10 @@
-var express = require('express');
-var gameService = require('../../services/gameservice.js');
-var bodyParser = require('body-parser');
+module.exports = init;
 
-module.exports = function(app) {
+function init(app) {
+  var express = require('express');
+  var gameService = require('../../services/gameservice.js');
+  var bodyParser = require('body-parser');
+
   app.get('/api/games.json', function(req, res, next) {
     var year = parseInt(req.param('year'));
     var month = parseInt(req.param('month'));

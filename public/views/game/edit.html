@@ -1,7 +1,7 @@
 <div style="text-align:right">
   <button type="button" class="btn btn-default" ng-click="back()">뒤로</button>
-  <button type="button" class="btn btn-info" ng-click="save()">저장</button>
-  <button type="button" class="btn btn-danger" ng-click="remove()" ng-show="mode == 'edit'">삭제</button>
+  <button ng-show="master" type="button" class="btn btn-info" ng-click="save()">저장</button>
+  <button ng-show="master" type="button" class="btn btn-danger" ng-click="remove()" ng-show="mode == 'edit'">삭제</button>
 </div>
 <form class="form-horizontal" role="form">
   <div class="form-group">

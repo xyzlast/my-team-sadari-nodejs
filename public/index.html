@@ -12,15 +12,15 @@
     <link rel="stylesheet" href="/vendor/kendo/src/styles/web/kendo.default.css"/>
   </head>
   <body ng-app="myApp">
-    <div class="container">
-      <div class="header" ng-controller="AuthCtrl">
+    <div class="container" ng-controller="AuthCtrl">
+      <div class="header">
         <ul id="header-menu" class="nav nav-pills pull-right">
           <li id="menu-main" class="active"><a ng-href="#">game</a></li>
           <li id="menu-statistics"><a ng-href="#/statistics/players">statistics</a></li>
           <li ng-show="master" id="menu-player"><a ng-href="#/season/list">players</a></li>
           <li ng-show="master" id="menu-season"><a ng-href="#/season/list">season</a></li>
           <li ng-show="!authorized"><a href="/auth/google">login</a></li>
-          <li ng-show="authorized" style="font-size: small"><a href="/logout">user: {{user.name}}(logout)</a></li>
+          <li ng-show="authorized" style="font-size: small"><a href="/logout">{{user.name}}(logout)</a></li>
         </ul>
         <h3>나만 아니면 돼~</h3>
       </div>

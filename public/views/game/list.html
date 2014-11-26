@@ -1,6 +1,6 @@
 <div style="text-align:right;margin-bottom:30px">
   <h1>{{title}} </h1>
-  <button type="button" class="btn btn-primary" ng-click="addNewGame()">Game 추가</button>
+  <button ng-show="master" type="button" class="btn btn-primary" ng-click="addNewGame()">Game 추가</button>
 </div>
 <h2 ng-show="noGame">
   게임이 진행되지 않았습니다.
@@ -8,7 +8,7 @@
 <div ng-repeat="game in games">
   <fieldset>
     <legend style="text-align:right">{{game.game.winner.name}}({{game.game.number}})
-      <button type="button" class="btn btn-info" ng-click="edit(game.game._id)">수정</button>
+      <button ng-show="master" type="button" class="btn btn-info" ng-click="edit(game.game._id)">수정</button>
     </legend>
     <ul>
       <li>비용 : {{game.game.cost}}</li>

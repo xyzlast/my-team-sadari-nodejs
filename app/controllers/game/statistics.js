@@ -1,8 +1,9 @@
-var express = require('express');
-var statisticsService = require('../../services/statisticsservice.js');
-var dateUtil = require('../../utils/dateconverter.js');
+module.exports = init;
 
-module.exports = function(app) {
+function init(app) {
+  var express = require('express');
+  var statisticsService = require('../../services/statisticsservice.js');
+  var dateUtil = require('../../utils/dateconverter.js');
 
   app.get('/api/statistics/players.json', function(req, res, next) {
     var from = dateUtil.convert(req.param('from'));
@@ -36,4 +37,4 @@ module.exports = function(app) {
       });
     });
   });
-};
+}

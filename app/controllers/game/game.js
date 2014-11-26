@@ -1,7 +1,10 @@
-var express = require('express');
-var gameService = require('../../services/gameservice.js');
-var playerService = require('../../services/playerservice.js');
-module.exports = function(app) {
+module.exports = init;
+
+function init(app) {
+  var express = require('express');
+  var gameService = require('../../services/gameservice.js');
+  var playerService = require('../../services/playerservice.js');
+
   app.get('/api/game/:id.json', function(req, res, next) {
     var id = req.param('id');
     gameService.findOne(id, function(game) {
@@ -14,6 +17,7 @@ module.exports = function(app) {
       });
     });
   });
+
   app.delete('/api/game/:id.json', function(req, res, next) {
     var id = req.param('id');
     gameService.remove(id, function(game) {
@@ -25,9 +29,6 @@ module.exports = function(app) {
   });
 
   app.post('/api/game/add.json', function(req, res, next) {
-    console.log(req.session.passport);
-    console.log(req.session.passport.user.emails);
-
     var game = req.body.game;
     var gameResults = req.body.gameResults;
     gameService.add(game, gameResults, function(game) {
@@ -58,4 +59,4 @@ module.exports = function(app) {
     });
   });
 
-};
+}
