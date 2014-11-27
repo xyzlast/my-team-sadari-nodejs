@@ -12,4 +12,16 @@ function PlayerController(app) {
       });
     });
   });
+
+  app.get('/api/player/:id.json', function(req, res, next) {
+
+  });
+
+  app.post('/api/player.json', function(req, res, next) {
+
+  });
+
+  app.delete('/api/player/:id.json', function(req, res, next) {
+
+  });
 };

@@ -32,6 +32,21 @@ describe('playerService.list', function() {
   });
 });
 
+describe('playerService.findOne', function() {
+  var player = null;
+  beforeEach(function(done) {
+    service.findOne('546d6b06763ed0372df956f5', function(p) {
+      expect(p).not.toBe(null);
+      player = p;
+      done();
+    });
+  });
+
+  it('check one player', function() {
+    expect(player).not.toBe(null);
+    console.log(player);
+  });
+});
 
 // describe('add init players', function() {
 //   var player1 = service.add('서인석', 2, '');

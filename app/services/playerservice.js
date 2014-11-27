@@ -15,14 +15,37 @@ function PlayerService() {
     q.then(func);
   };
 
-  self.add = function(name, defaultAmount, description) {
+  self.findOne = function(id, func) {
+    var q = Player.findById(ObjectId(id)).exec();
+    q.then(function(player) {
+      func(player);
+    });
+  };
+
+  self.add = function(name, defaultAmount, description, deleted) {
     var player = new Player({
       name: name,
       defaultAmount: defaultAmount,
-      deleted: false,
+      deleted: deleted,
       description: description
     });
     player.save();
     return player;
+  };
+
+  self.update = function(id, name, defaultAmount, description, deleted, func) {
+    var query = {
+      _id: ObjectId(id)
+    };
+    var data = {
+      name: name,
+      defaultAmount: defaultAmount,
+      deleted: deleted,
+      description: description
+    };
+    var q = Player.update(query, data).exec();
+    q.then(function(count) {
+      func(count);
+    });
   };
 };

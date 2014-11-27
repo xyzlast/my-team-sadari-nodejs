@@ -48,6 +48,18 @@ angular.module('myApp', [
     .when('/season/new', {
       templateUrl: '/views/season/edit.html',
       controller: 'SeasonNewCtrl'
+    })
+    .when('/player/list', {
+      templateUrl: '/views/player/list.html',
+      controller: 'PlayerListCtrl'
+    })
+    .when('/player/edit', {
+      templateUrl: '/views/player/edit.html',
+      controller: 'PlayerEditCtrl'
+    })
+    .when('/player/new', {
+      templateUrl: '/views/player/edit.html',
+      controller: 'PlayerNewCtrl'
     });
 
   RestangularProvider.setDefaultHttpFields({
