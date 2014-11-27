@@ -73,7 +73,13 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
   var load = function(data) {
     $scope.rawData = angular.copy(data);
     $scope.rawData.sort(function(a, b) {
-      return a.player.name > b.player.name;
+      if(a.player.name < b.player.name) {
+        return -1;
+      } else if(a.player.name > b.player.name) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
     buildData();
   };
@@ -94,7 +100,13 @@ angular.module('myApp').controller('StatisticsPlayersCtrl', function($scope, Sta
       }
     });
     output.sort(function(a, b) {
-      return a.count < b.count;
+      if(b.count > a.count) {
+        return 1;
+      } else if(b.count < a.count) {
+        return -1;
+      } else {
+        return 0;
+      }
     });
     $scope.pieChartData = output;
   };
