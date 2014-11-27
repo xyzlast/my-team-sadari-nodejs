@@ -1,7 +1,6 @@
 angular.module('myApp').controller('PlayerListCtrl', function($scope, $location, PlayerService) {
-
   var init = function() {
-    PlayerService.list(load);
+    PlayerService.getAll(load);
   };
 
   var load = function(data) {
@@ -9,9 +8,6 @@ angular.module('myApp').controller('PlayerListCtrl', function($scope, $location,
   };
 
   $scope.players = [];
-  $scope.remove = function(id) {
-
-  };
   $scope.addNewPlayer = function() {
     return $location.path('/player/new');
   };

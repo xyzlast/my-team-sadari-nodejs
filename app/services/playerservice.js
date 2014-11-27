@@ -15,6 +15,11 @@ function PlayerService() {
     q.then(func);
   };
 
+  self.getAll = function(func) {
+    var q = Player.find({}).sort({name: 1}).exec();
+    q.then(func);
+  };
+
   self.findOne = function(id, func) {
     var q = Player.findById(ObjectId(id)).exec();
     q.then(function(player) {
@@ -22,15 +27,16 @@ function PlayerService() {
     });
   };
 
-  self.add = function(name, defaultAmount, description, deleted) {
+  self.add = function(name, defaultAmount, description, deleted, func) {
     var player = new Player({
       name: name,
       defaultAmount: defaultAmount,
       deleted: deleted,
       description: description
     });
-    player.save();
-    return player;
+    player.save(function(err) {
+      func('add completed');
+    });
   };
 
   self.update = function(id, name, defaultAmount, description, deleted, func) {
@@ -44,6 +50,16 @@ function PlayerService() {
       description: description
     };
     var q = Player.update(query, data).exec();
+    q.then(function(count) {
+      func(count);
+    });
+  };
+
+  self.remove = function(id, func) {
+    var query = {
+      _id: ObjectId(id)
+    };
+    var q = Player.remove(query).exec();
     q.then(function(count) {
       func(count);
     });
