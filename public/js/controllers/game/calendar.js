@@ -10,7 +10,7 @@ angular.module('myApp').controller('GameCalendarCtrl', function($scope, $locatio
       today: '오늘'
     },
     header: false,
-    height: 630,
+    height: 480,
     editable: false,
     selectable: true,
     views: ['month'],

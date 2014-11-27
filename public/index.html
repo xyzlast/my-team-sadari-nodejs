@@ -13,24 +13,73 @@
 </head>
 <body ng-app="myApp">
   <div class="container" ng-controller="AuthCtrl">
-    <div class="header">
-      <div class="row">
-        <div class="col-md-8">
-          <ul id="header-menu" class="nav nav-pills pull-right">
-            <li id="menu-main" class="active"><a ng-href="/#/">game</a></li>
-            <li id="menu-statistics"><a ng-href="/#/statistics/players">statistics</a></li>
-            <li ng-show="master" id="menu-player"><a ng-href="/#/season/list">players</a></li>
-            <li ng-show="master" id="menu-season"><a ng-href="/#/season/list">season</a></li>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Sadari</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <li class="active">
+          <a href="/#/">game<span class="sr-only">(current)</span></a>
+        </li>
+        <li>
+          <a href="/#/statistics/players">statistics</a>
+        </li>
+
+        <li class="dropdown" ng-show="master">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">manager<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/#/season/list">season</a></li>
+            <li><a href="/#/player/list">player</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
           </ul>
-          <a href="/"><img src="/img/sadari.png" height="48" width="48"/></a>
-        </div>
-        <div class="col-md-4" style="margin-top: 10px;text-align:right">
-          <a ng-show="!authorized" href="/auth/google">login</a>
-          <p ng-show="authorized">
-            <img src="{{user.picture}}" height="16" width="16"/> {{user.name}}(<a href="/logout">logout</a>)
-          </p>
-        </div>
-      </div>
+        </li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="header" style="text-align:right">
+      <a ng-show="!authorized" href="/auth/google">login</a>
+      <p ng-show="authorized">
+        <img src="{{user.picture}}" height="16" width="16"/> {{user.name}}(<a href="/logout">logout</a>)
+      </p>
     </div>
 
     <div ng-controller="MainCtrl">
@@ -44,7 +93,8 @@
       <p><span class="glyphicon glyphicon-heart"></span> from ykyoon</p>
     </div>
   </div>
-  <a href="https://github.com/xyzlast/my-team-sadari-nodejs"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+  <a href="https://github.com/xyzlast/my-team-sadari-nodejs"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/121cd7cbdc3e4855075ea8b558508b91ac463ac2/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png"></a>
+
   <script src="components/jquery/dist/jquery.js"></script>
   <script src="components/angular/angular.js"></script>
   <script src="components/bootstrap/dist/js/bootstrap.js"></script>
