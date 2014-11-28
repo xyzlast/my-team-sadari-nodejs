@@ -65,8 +65,6 @@ function GameService() {
 
     game.winner = ObjectId(winnerId);
     game.deleted = false;
-    var date = game.date;
-    game.date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     var gameObj = new Game(game);
 
     gameObj.save(function(err) {
