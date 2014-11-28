@@ -29,7 +29,7 @@ function GameService() {
                   deleted: false,
                   date: {
                           "$gte": new Date(Date.UTC(year, month, day)),
-                          "$lte": new Date(Date.UTC(year, month, day, 24))
+                          "$lt": new Date(Date.UTC(year, month, day, 24))
                         }
                 };
     var q = Game.find(query).populate('winner').exec();
