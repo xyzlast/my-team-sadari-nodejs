@@ -39,9 +39,7 @@ function GameService() {
       }
       var output = [];
       games.forEach(function(game) {
-        var query = {
-          game: ObjectId(games[i]._id)
-        };
+        var query = { game: ObjectId(game._id) };
         var rq = GameResult.find(query).populate('player').exec();
         rq.then(function(gameResults) {
           output.push({
