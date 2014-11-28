@@ -38,22 +38,21 @@ function GameService() {
         func([]);
       }
       var output = [];
-      for(var i = 0 ; i < games.length ; i++) {
+      games.forEach(function(game) {
         var query = {
           game: ObjectId(games[i]._id)
         };
-        var item = {
-          game: games[i]
-        };
         var rq = GameResult.find(query).populate('player').exec();
         rq.then(function(gameResults) {
-          item.players = gameResults;
-          output.push(item);
+          output.push({
+            game: game,
+            players: gameResults
+          });
           if(output.length == games.length) {
             func(output);
           }
         });
-      }
+      });
     });
   };
 
