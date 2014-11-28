@@ -16,8 +16,8 @@ function GameService() {
     var query = {
                   deleted: false,
                   date: {
-                          "$gte": new Date(year, month, 1),
-                          "$lte": new Date(year, month + 1, 1)
+                          "$gte": new Date(Date.UTC(year, month, 1)),
+                          "$lte": new Date(Date.UTC(year, month + 1, 1))
                         }
                 };
     var q = Game.find(query).populate('winner').sort('date').exec();
@@ -28,8 +28,8 @@ function GameService() {
     var query = {
                   deleted: false,
                   date: {
-                          "$gte": new Date(year, month, day),
-                          "$lte": new Date(year, month, day, 24)
+                          "$gte": new Date(Date.UTC(year, month, day)),
+                          "$lte": new Date(Date.UTC(year, month, day, 24))
                         }
                 };
     var q = Game.find(query).populate('winner').exec();
@@ -65,6 +65,8 @@ function GameService() {
 
     game.winner = ObjectId(winnerId);
     game.deleted = false;
+    var date = game.date;
+    game.date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     var gameObj = new Game(game);
 
     gameObj.save(function(err) {

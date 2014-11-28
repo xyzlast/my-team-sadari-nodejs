@@ -28,7 +28,7 @@ function SeasonService() {
         var oneDayMiliSeconds = 24 * 60 * 60 * 1000;
         currentSeason.from = new Date(seasons[0].to.getTime() + oneDayMiliSeconds);
       } else {
-        currentSeason.from = new Date(2014, 10, 1);
+        currentSeason.from = new Date(Date.UTC(2014, 10, 1));
       }
       output.push(currentSeason);
       seasons.forEach(function(season) {
