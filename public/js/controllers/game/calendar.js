@@ -46,7 +46,7 @@ angular.module('myApp').controller('GameCalendarCtrl', function($scope, $locatio
     var year = date.getFullYear();
     var month = date.getMonth();
     $scope.year = year;
-    $scope.month = month;
+    $scope.month = month + 1;
     GameService.getByMonth(year, month, buildCalendarData);
   };
 
