@@ -7,7 +7,7 @@ function GameListController(app) {
 
   app.get('/api/games.json', function(req, res, next) {
     var year = parseInt(req.param('year'));
-    var month = parseInt(req.param('month'));
+    var month = parseInt(req.param('month')) - 1;
     var day = parseInt(req.param('day'));
 
     if(year && day && month) {

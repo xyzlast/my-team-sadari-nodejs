@@ -39,6 +39,14 @@ module.exports = function(app, config) {
     }
   };
 
+  app.get('/api/monitoring.json', function(req, res) {
+    res.json({
+      pid: process.pid,
+      memory: process.memoryUsage(),
+      uptime: process.uptime()
+    });
+  });
+
   app.post('/api/*', function(req, res, next) {
     checkAuth(req, res, next);
   });

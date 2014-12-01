@@ -15,7 +15,7 @@ angular.module('myApp').service('GameService', function GameService(Restangular,
   self.getByDay = function(year, month, day, func) {
     var params = {
       year: year,
-      month: parseInt(month) - 1,
+      month: parseInt(month),
       day: day
     };
     Restangular.all('').get('games', params).then(function(jsonResult) {
