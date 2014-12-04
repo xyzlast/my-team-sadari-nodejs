@@ -27,7 +27,6 @@ function OAuthController(app) {
     // done 메소드에 전달된 정보가 세션에 저장된다.
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //
-    console.log(profile);
     return done(null, profile);
   }));
 

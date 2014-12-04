@@ -60,6 +60,18 @@ angular.module('myApp', [
     .when('/player/new', {
       templateUrl: '/views/player/edit.html',
       controller: 'PlayerNewCtrl'
+    })
+    .when('/signin', {
+      templateUrl: '/views/signin.html',
+      controller: 'SignInCtrl'
+    })
+    .when('/signup', {
+      templateUrl: '/views/signup.html',
+      controller: 'SignUpCtrl'
+    })
+    .when('/sample/index', {
+      templateUrl: '/views/sample/index.html',
+      controller: 'SampleIndexCtrl'
     });
 
   RestangularProvider.setDefaultHttpFields({
