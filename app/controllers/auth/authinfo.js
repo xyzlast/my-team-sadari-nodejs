@@ -16,4 +16,4 @@ function AuthInfoController(app) {
       });
     }
   });
-};
+}

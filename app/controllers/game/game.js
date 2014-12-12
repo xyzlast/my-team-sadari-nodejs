@@ -1,63 +1,69 @@
-module.exports = GameController;
+var express = require('express'),
+    router = express.Router();
+var async = require('async');
+var gameService = require('../../services/gameservice.js');
+var playerService = require('../../services/playerservice.js');
 
-function GameController(app) {
-  var express = require('express');
-  var gameService = require('../../services/gameservice.js');
-  var playerService = require('../../services/playerservice.js');
+module.exports = function (app) {
+  app.use('/api/game', router);
+};
 
-  app.get('/api/game/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    gameService.findOne(id, function(game) {
-      playerService.list(function(players) {
-        game.players = players;
-        res.json({
-          ok: true,
-          data: game
-        })
-      });
-    });
-  });
-
-
-  app.delete('/api/game/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    gameService.remove(id, function(game) {
-      res.json({
-        ok: true,
-        data: 'remove completed'
-      });
-    });
-  });
-
-  app.post('/api/game/add.json', function(req, res, next) {
-    var game = req.body.game;
-    var gameResults = req.body.gameResults;
-    gameService.add(game, gameResults, function(game) {
-      res.json({
-        ok: true,
-        data: 'data'
-      });
-    });
-  });
-
-  app.post('/api/game/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    var description = '';
-    if(req.body.game.description) {
-      description = req.body.game.description;
-    }
-    var game = {
-      number: req.body.game.number,
-      cost: req.body.game.cost,
-      description: description
-    };
-    var gameResults = req.body.gameResults;
-    gameService.update(id, game, gameResults, function(updatedGame) {
-      res.json({
-        ok: true,
-        data: 'update completed'
-      });
-    });
-  });
-
+function buildJson(data) {
+  return {
+    ok: true,
+    data: data
+  };
 }
+
+router.get("/:id.json", function (req, res) {
+  var id = req.param('id');
+  var findGame = function (callback) {
+    gameService.findOne(id, function (game) {
+      callback(null, game);
+    });
+  };
+  var buildPlayers = function (game, callback) {
+    playerService.list(function (players) {
+      game.players = players;
+      callback(null, game);
+    });
+  };
+  var buildResult = function (error, result) {
+    res.json(buildJson(result));
+  };
+  async.waterfall([findGame, buildPlayers], buildResult);
+});
+
+router.delete('/:id.json', function (req, res) {
+  var id = req.param('id');
+  gameService.remove(id, function(game) {
+    res.json(buildJson('remove complted'));
+  });
+});
+
+router.post('/add.json', function (req, res) {
+  var game = req.body.game;
+  var gameResults = req.body.gameResults;
+  gameService.add(game, gameResults, function(game) {
+    res.json(buildJson(game));
+  });
+});
+
+router.post('/:id.json', function (req, res) {
+
+  var id = req.param('id');
+  var description = '';
+  if(req.body.game.description) {
+    description = req.body.game.description;
+  }
+  var game = {
+    number: req.body.game.number,
+    cost: req.body.game.cost,
+    description: description
+  };
+  var gameResults = req.body.gameResults;
+  gameService.update(id, game, gameResults, function (updatedGame) {
+    res.json(buildJson('update complted'));
+  });
+
+});

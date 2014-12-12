@@ -51,4 +51,4 @@ function OAuthController(app) {
     req.session = null;
     res.redirect('/');
   });
-};
+}

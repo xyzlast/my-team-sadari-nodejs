@@ -7,8 +7,9 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
-  grunt.loadNpmTasks('grunt-jasmine-node');
 
+  grunt.loadNpmTasks('grunt-jasmine-node');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   var reloadPort = 36729, files;
 
   grunt.initConfig({
@@ -62,6 +63,12 @@ module.exports = function (grunt) {
         }
       },
       all: ['test/']
+    },
+    jshint: {
+      all: [ 'app/**/*.js' ],
+      options:{
+        reporter: require('jshint-stylish')
+      }
     }
   });
 
@@ -87,8 +94,5 @@ module.exports = function (grunt) {
     'develop',
     'watch'
   ]);
-
-  grunt.registerTask('jasmine', [
-    'jasmine_node'
-  ]);
+  grunt.registerTask('jasmine', ['jasmine_node']);
 };
