@@ -1,5 +1,4 @@
-var express = require('express'),
-  router = express.Router();
+var express = require('express'), router = express.Router();
 var gameService = require('../../services/gameservice.js');
 var jsonUtil = require('../../utils/jsonutil.js');
 
@@ -7,11 +6,10 @@ module.exports = function(app) {
   app.use('/', router);
 };
 
-router.get('/api/games.json', function(req, res, next) {
+router.get('/api/games.json', function (req, res, next) {
   var year = parseInt(req.param('year'));
   var month = parseInt(req.param('month')) - 1;
   var day = parseInt(req.param('day'));
-
   if (year && day && month) {
     gameService.listByDate(year, month, day, function (games) {
       res.json(jsonUtil.buildJson(games));
@@ -21,7 +19,7 @@ router.get('/api/games.json', function(req, res, next) {
   }
 });
 
-router.get('/api/games.json', function(req, res, next) {
+router.get('/api/games.json', function (req, res, next) {
   var year = parseInt(req.param('year'));
   var month = parseInt(req.param('month'));
 
@@ -38,16 +36,13 @@ router.get('/api/games.json', function(req, res, next) {
   }
 });
 
-router.get('/api/games.json', function(req, res) {
+router.get('/api/games.json', function (req, res) {
   gameService.list(function (games) {
     var results = [];
     games.forEach(function (game) {
       results.push(convertGameSummary(game));
     });
-    res.json({
-      ok: true,
-      data: results
-    });
+    res.json(jsonUtil.buildJson(results));
   });
 });
 
