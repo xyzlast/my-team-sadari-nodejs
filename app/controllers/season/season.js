@@ -1,55 +1,42 @@
-module.exports = init;
-function init(app) {
-  var express = require('express');
-  var seasonService = require('../../services/seasonservice.js');
+var express = require('express'), router = express.Router();
+var seasonService = require('../../services/seasonservice.js');
+var jsonUtil = require('../../utils/jsonutil.js');
 
-  app.get('/api/seasons.json', function(req, res, next) {
-    seasonService.list(function(seasons) {
-      res.json({
-        ok: true,
-        data: seasons
-      });
-    });
-  });
+module.exports = function(app) {
+  app.use('/api/season', router);
+};
 
-  app.get('/api/season/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    seasonService.findOne(id, function(season) {
-      res.json({
-        ok: true,
-        data: season
-      });
-    });
+router.get('/list.json', function (req, res) {
+  seasonService.list(function(seasons) {
+    res.json(jsonUtil.buildJson(seasons));
   });
+});
 
-  app.post('/api/season/add.json', function(req, res, next) {
-    var item = req.body;
-    seasonService.add(item.name, item.from, item.to, item.description, function(output) {
-      res.json({
-        ok: true,
-        data: output
-      });
-    });
+router.get('/:id.json', function (req, res) {
+  var id = req.param('id');
+  seasonService.findOne(id, function(season) {
+    res.json(jsonUtil.buildJson(season));
   });
+});
 
-  app.post('/api/season/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    var item = req.body;
-    seasonService.update(id, item.name, item.from, item.to, item.description, function(output) {
-      res.json({
-        ok: true,
-        data: output
-      });
-    });
+router.post('/add.json', function (req, res) {
+  var item = req.body;
+  seasonService.add(item.name, item.from, item.to, item.description, function(output) {
+    res.json(jsonUtil.buildJson(output));
   });
+});
 
-  app.delete('/api/season/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    seasonService.remove(id, function(output) {
-      res.json({
-        ok: true,
-        data: output
-      });
-    });
+router.post('/:id.json', function (req, res) {
+  var id = req.param('id');
+  var item = req.body;
+  seasonService.update(id, item.name, item.from, item.to, item.description, function(output) {
+    res.json(jsonUtil.buildJson(output));
   });
-}
+});
+
+router.delete('/:id.json', function (req, res) {
+  var id = req.param('id');
+  seasonService.remove(id, function(output) {
+    res.json(jsonUtil.buildJson(output));
+  });
+});
