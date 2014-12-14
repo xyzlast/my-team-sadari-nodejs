@@ -50,15 +50,7 @@
         </div>
       </div>
     </nav>
-
-<a class="btn btn-block btn-social btn-google-plus">
-  <i class="fa fa-google-plus"></i>
-  Sign in with Twitter
-</a>
-
     <div class="header" style="text-align:right">
-
-
       <a ng-show="!authorized" href="/auth/google">login</a>
       <p ng-show="authorized">
         <img src="{{user.picture}}" height="16" width="16"/> {{user.name}}(<a href="/logout">logout</a>)
