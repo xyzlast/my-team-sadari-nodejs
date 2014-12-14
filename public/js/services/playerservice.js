@@ -38,7 +38,7 @@ angular.module('myApp').service('PlayerService', function(Restangular) {
         message: '초기값은 0보다 작을 수 없습니다.'
       };
     }
-    Restangular.all('player').post(player).then(function(jsonResult) {
+    Restangular.all('player/add').post(player).then(function(jsonResult) {
       if(jsonResult.ok && func) {
         func(jsonResult.data);
       }

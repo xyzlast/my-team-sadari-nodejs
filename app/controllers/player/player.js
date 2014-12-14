@@ -1,78 +1,57 @@
-module.exports = PlayerController;
+var express = require('express'), router = express.Router();
+var playerService = require('../../services/playerservice.js');
+var jsonUtil = require('../../utils/jsonutil.js');
 
-function PlayerController(app) {
-  var express = require('express');
-  var playerService = require('../../services/playerservice.js');
-
-  app.get('/api/player/list.json', function(req, res, next) {
-    if(req.param('all')) {
-      playerService.getAll(function(players) {
-        res.json({
-          ok: true,
-          data: players
-        });
-      });
-    } else {
-      playerService.list(function(players) {
-        res.json({
-          ok: true,
-          data: players
-        });
-      });
-    }
-  });
-
-  app.get('/api/player/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    playerService.findOne(id, function(player) {
-      res.json({
-        ok: true,
-        data: player
-      });
-    });
-  });
-
-  app.delete('/api/player/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    playerService.remove(id, function(count) {
-      res.json({
-        ok: true,
-        data: 'delte completed'
-      });
-    });
-  });
-
-  app.post('/api/player.json', function(req, res, next) {
-    var data = {
-      name: req.body.name,
-      defaultAmount: req.body.defaultAmount,
-      deleted: req.body.deleted,
-      description: req.body.description ? req.body.description : ''
-    };
-
-    playerService.add(data.name, data.defaultAmount, data.description, data.deleted, function(count) {
-      res.json({
-        ok: true,
-        data: 'add complted'
-      });
-    });
-  });
-
-  app.post('/api/player/:id.json', function(req, res, next) {
-    var id = req.param('id');
-    var data = {
-      name: req.body.name,
-      defaultAmount: req.body.defaultAmount,
-      deleted: req.body.deleted,
-      description: req.body.description ? req.body.description : ''
-    };
-
-    playerService.update(id, data.name, data.defaultAmount, data.description, data.deleted, function(count) {
-      res.json({
-        ok: true,
-        data: 'update complted'
-      });
-    });
-  });
-
+module.exports = function(app) {
+  app.use('/api/player', router);
 }
+
+router.get('/list.json', function (req, res) {
+  var buildJson = function(players) {
+    res.json(jsonUtil.buildJson(players));
+  };
+  if (req.param('all')) {
+    playerService.getAll(buildJson);
+  } else {
+    playerService.list(buildJson);
+  }
+});
+
+router.get('/:id.json', function (req, res) {
+  var id = req.param('id');
+  playerService.findOne(id, function(player) {
+    res.json(jsonUtil.buildJson(player));
+  });
+});
+
+router.delete('/:id.json', function (req, res) {
+  var id = req.param('id');
+  playerService.remove(id, function(count) {
+    res.json(jsonUtil.buildJson('delete completed'));
+  });
+});
+
+router.post('/add.json', function (req, res) {
+  var data = {
+    name: req.body.name,
+    defaultAmount: req.body.defaultAmount,
+    deleted: req.body.deleted,
+    description: req.body.description ? req.body.description : ''
+  };
+  playerService.add(data.name, data.defaultAmount, data.description, data.deleted, function(count) {
+    res.json(jsonUtil.buildJson('add completed'));
+  });
+});
+
+router.post('/:id.json', function (req, res) {
+  var id = req.param('id');
+  var data = {
+    name: req.body.name,
+    defaultAmount: req.body.defaultAmount,
+    deleted: req.body.deleted,
+    description: req.body.description ? req.body.description : ''
+  };
+  playerService.update(id, data.name, data.defaultAmount, data.description, data.deleted, function(count) {
+    res.json(jsonUtil.buildJson('update complted'));
+  });
+});

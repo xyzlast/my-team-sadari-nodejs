@@ -15,7 +15,7 @@ router.get('/players.json', function (req, res) {
   });
 });
 
-router.get('numbers.json', function (req, res) {
+router.get('/numbers.json', function (req, res) {
   var from = dateUtil.convert(req.param('from'));
   var to = dateUtil.convert(req.param('to'));
   statisticsService.calculateByNumbers(from, to, function(output) {
@@ -23,7 +23,7 @@ router.get('numbers.json', function (req, res) {
   });
 });
 
-router.get('money.json', function (req, res) {
+router.get('/money.json', function (req, res) {
   var from = dateUtil.convert(req.param('from'));
   var to = dateUtil.convert(req.param('to'));
   statisticsService.calculateByMoney(from, to, function(output) {
